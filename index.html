@@ -8,307 +8,377 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Professional Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-                    },
                     colors: {
                         brand: {
-                            red: '#D32F2F',      // Tabela Kırmızısı
-                            redDark: '#B71C1C',
-                            blue: '#0D47A1',     // Anadolu Sigorta Mavisı
-                            dark: '#0B0F19',
-                            surface: '#F8FAFC',
-                            border: '#E2E8F0',
-                            gray: '#64748B'
+                            red: '#E5383B',      // Vibrant Modern Red
+                            redDark: '#BA181B',
+                            redGlow: '#FF4D4D',
+                            blue: '#2563EB',     // Vibrant Anadolu Blue
+                            darkBg: '#080E1E',   // Deep Royal Dark
+                            cardBg: '#0F172A',
+                            surface: '#0B132B',   // Deep Consistent Dark Surface
+                            border: '#1E293B',
+                            textDark: '#F8FAFC'
                         }
+                    },
+                    boxShadow: {
+                        'glow-red': '0 0 25px -5px rgba(229, 56, 59, 0.4)',
+                        'glow-emerald': '0 0 25px -5px rgba(16, 185, 129, 0.4)',
+                        'glow-blue': '0 0 25px -5px rgba(37, 99, 235, 0.4)',
+                        'liquid-glass': '0 20px 50px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9)',
                     }
                 }
             }
         }
     </script>
     <style>
+        /* SF Pro Font Declaration with Fallbacks */
         body {
-            font-family: 'Inter', sans-serif;
-            letter-spacing: -0.011em;
+            font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            letter-spacing: -0.015em;
+            background: #070B15;
+            color: #F8FAFC;
+            min-height: 100vh;
         }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+        .liquid-glass-nav {
+            background: rgba(11, 19, 43, 0.75);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
         }
-        .apple-card {
-            background: #ffffff;
-            border: 1px solid #E2E8F0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        .liquid-card {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .apple-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
-            border-color: #CBD5E1;
+        .liquid-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            background: rgba(30, 41, 59, 0.75);
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 30px 60px -20px rgba(37, 99, 235, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.15);
+        }
+        .liquid-card-accent {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.12);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #FF4D4D 0%, #3B82F6 50%, #818CF8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .shimmer-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+            transform: rotate(30deg);
+            animation: shimmer 4s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            20% { transform: translateX(100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
         }
         .smooth-appear {
             animation: appear 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes appear {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
     </style>
 </head>
-<body class="bg-brand-surface text-brand-dark antialiased selection:bg-brand-red selection:text-white">
+<body class="antialiased selection:bg-brand-red selection:text-white">
+
+    <!-- Ambient Dark Liquid Orbs in Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-20 left-1/4 w-[500px] h-[500px] bg-blue-900/30 rounded-full blur-[140px]"></div>
+        <div class="absolute top-1/3 -right-20 w-[450px] h-[450px] bg-red-950/30 rounded-full blur-[130px]"></div>
+        <div class="absolute bottom-10 left-10 w-[550px] h-[550px] bg-indigo-950/40 rounded-full blur-[150px]"></div>
+        <div class="absolute top-2/3 right-1/3 w-[400px] h-[400px] bg-emerald-950/20 rounded-full blur-[120px]"></div>
+    </div>
 
     <!-- TOP NAVIGATION -->
-    <header class="sticky top-0 z-50 glass-nav border-b border-brand-border">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="flex items-center space-x-3 group">
-                <div class="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform p-2 border border-slate-700">
-                    <!-- Exact SVG Reproduction of provided Storefront Logo -->
-                    <svg class="w-full h-full text-white fill-current" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Umbrella Dome -->
-                        <path d="M50 12 C28 12 12 28 12 36 C18 33 26 33 33 36 C40 33 48 33 50 36 C52 33 60 33 67 36 C74 33 82 33 88 36 C88 28 72 12 50 12 Z"/>
-                        <!-- Umbrella Handle Handle Top -->
-                        <rect x="48.5" y="36" width="3" height="15" fill="currentColor"/>
-                        <!-- Center Person (Tie) -->
-                        <circle cx="50" cy="56" r="6"/>
-                        <path d="M41 78 C41 68 45 64 50 64 C55 64 59 68 59 78 Z"/>
-                        <polygon points="50,67 48.5,73 50,75 51.5,73" fill="#0B0F19"/>
-                        <!-- Left Person -->
-                        <circle cx="38" cy="59" r="5"/>
-                        <path d="M30 78 C30 70 34 66 38 66 C41 66 43 68 44 71 C41 73 40 76 40 78 Z"/>
-                        <!-- Right Person (Woman) -->
-                        <circle cx="62" cy="58" r="5"/>
-                        <path d="M56 78 C56 76 57 73 60 71 C61 68 63 66 66 66 C70 66 74 70 74 78 Z"/>
-                    </svg>
-                </div>
-                <div>
-                    <div class="text-base font-extrabold tracking-tight text-brand-dark leading-tight flex items-center gap-2">
+    <header class="sticky top-0 z-50 liquid-glass-nav transition-all">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
+            <!-- Left Logo -->
+            <a href="#" class="flex items-center space-x-3 group shrink-0">
+                <div class="flex flex-col text-left">
+                    <div class="text-lg font-black tracking-tight text-white leading-none group-hover:text-brand-red transition-colors">
                         YUSUF ÖZEK
-                        <span class="text-[10px] bg-brand-blue/10 text-brand-blue font-bold px-2 py-0.5 rounded-full">YETKİLİ ACENTE</span>
                     </div>
-                    <div class="text-[11px] font-semibold text-brand-red tracking-wider uppercase">SİGORTA & TARSİM</div>
+                    <div class="text-lg font-black tracking-tight text-white leading-none mt-0.5">
+                        SİGORTA
+                    </div>
                 </div>
             </a>
 
-            <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
-                <a href="#branches" class="hover:text-brand-dark transition-colors">Sigorta Türleri</a>
-                <a href="#form-section" class="hover:text-brand-dark transition-colors">Teklif Al</a>
-                <a href="#about" class="hover:text-brand-dark transition-colors">Acente Bilgileri</a>
-                <a href="#faq" class="hover:text-brand-dark transition-colors">S.S.S.</a>
+            <!-- Navigation Links (Centered) -->
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-extrabold text-slate-200 absolute left-1/2 -translate-x-1/2">
+                <a href="#branches" class="hover:text-brand-red transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-red hover:after:w-full after:transition-all">Sigorta Türleri</a>
+                <a href="#form-section" class="hover:text-brand-red transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-red hover:after:w-full after:transition-all">Teklif Al</a>
+                <a href="#about" class="hover:text-brand-red transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-red hover:after:w-full after:transition-all">Acente Bilgileri</a>
             </nav>
 
-            <!-- Direct Contact Actions -->
-            <div class="flex items-center space-x-3">
-                <a href="https://wa.me/905393990508?text=Merhaba,%20sigorta%20teklifi%20almak%20istiyorum." target="_blank" class="hidden sm:flex items-center space-x-2 text-xs font-bold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-4 py-2.5 rounded-full transition-all border border-emerald-200">
-                    <i class="fa-brands fa-whatsapp text-sm"></i>
-                    <span>WhatsApp Hızlı Hattı</span>
+            <!-- Direct Contact Actions (Far Right) -->
+            <div class="flex items-center space-x-3 shrink-0 ml-auto">
+                <a href="https://wa.me/905324140825?text=Merhaba,%20sigorta%20teklifi%20almak%20istiyorum." target="_blank" class="hidden sm:flex items-center space-x-2 text-xs font-bold bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500 hover:text-white px-4 py-2.5 rounded-full transition-all border border-emerald-500/30 backdrop-blur-md shadow-sm">
+                    <i class="fa-brands fa-whatsapp text-sm text-emerald-400 group-hover:text-white"></i>
+                    <span>WhatsApp Hızlı Hat</span>
                 </a>
-                <a href="tel:05393990508" class="flex items-center space-x-2 text-xs font-bold bg-brand-dark text-white hover:bg-slate-800 px-4 py-2.5 rounded-full transition-all shadow-sm">
-                    <i class="fa-solid fa-phone text-brand-red text-xs"></i>
-                    <span>Murat Özek: 0539 399 05 08</span>
+                <a href="tel:05324140825" class="flex items-center space-x-2 text-xs font-extrabold bg-gradient-to-r from-brand-red to-brand-redDark text-white hover:opacity-95 px-4 py-2.5 rounded-full transition-all shadow-md shadow-red-500/30">
+                    <i class="fa-solid fa-phone text-white text-xs"></i>
+                    <span>0532 414 08 25</span>
                 </a>
             </div>
         </div>
     </header>
 
     <!-- HERO SECTION -->
-    <section class="relative pt-16 pb-12 px-6 overflow-hidden">
+    <section class="relative z-10 pt-16 pb-16 px-6">
         <div class="max-w-4xl mx-auto text-center relative z-10">
-            <div class="inline-flex items-center space-x-2 bg-white border border-brand-border px-4 py-1.5 rounded-full text-xs font-semibold text-slate-700 shadow-sm mb-6">
-                <span class="w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse"></span>
+            
+            <div class="inline-flex items-center space-x-2 liquid-card px-4 py-2 rounded-full text-xs font-semibold text-slate-300 mb-8 border border-white/10 shadow-sm">
+                <span class="w-2.5 h-2.5 rounded-full bg-brand-red animate-ping"></span>
                 <span>TÜRK P&İ TEKNE SİGORTASI YETKİLİ ACENTE & TARSİM TEMSİLCİSİ</span>
             </div>
 
-            <h1 class="text-3xl sm:text-5xl font-black text-brand-dark tracking-tight leading-[1.15] mb-6">
-                Sigorta Bilgilerinizi Girin, <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-brand-blue">En Uygun Teklifi Anında WhatsApp'tan Alın.</span>
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.2] mb-6 text-white">
+                Güvenli Geleceğiniz İçin <br>
+                <span class="gradient-text">En Uygun Sigorta Teklifini Alın</span>
             </h1>
             
-            <p class="text-slate-600 text-base max-w-2xl mx-auto font-normal leading-relaxed mb-8">
-                Trafik Sigortası, Kasko Sigortası, TÜRK P&İ Tekne Sigortası, TARSİM Tarım Sigortası, DASK Ve Sağlık ve Seyahat Sigortalarınız için bilgilerinizi eksiksiz iletin, Murat Özek doğrudan size özel çalışılmış teklifleri hazırlasın.
+            <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto font-normal leading-relaxed mb-10">
+                Trafik, Kasko, TÜRK P&İ Tekne, TARSİM Tarım, DASK, TÜVTÜRK Muayene ve Sağlık Sigortalarınız için bilgilerinizi iletin; Murat Özek doğrudan size en uygun poliçe fiyatını WhatsApp'tan sunsun.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#form-section" class="w-full sm:w-auto bg-brand-red hover:bg-brand-redDark text-white font-bold text-sm px-8 py-4 rounded-2xl transition-all shadow-lg shadow-brand-red/20 flex items-center justify-center space-x-2">
+                <a href="#form-section" class="shimmer-btn w-full sm:w-auto bg-gradient-to-r from-brand-red to-brand-redDark hover:opacity-95 text-white font-extrabold text-sm px-9 py-4 rounded-2xl transition-all shadow-lg shadow-red-500/30 flex items-center justify-center space-x-2.5">
                     <i class="fa-solid fa-paper-plane text-xs"></i>
                     <span>Hemen Teklif Formunu Doldur</span>
                 </a>
-                <a href="#branches" class="w-full sm:w-auto bg-white hover:bg-slate-50 text-brand-dark font-bold text-sm px-8 py-4 rounded-2xl transition-all border border-brand-border flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-layer-group text-slate-400"></i>
-                    <span>Neyi Güvence Altına Almak İstersiniz</span>
+                <a href="#branches" class="w-full sm:w-auto liquid-card hover:bg-slate-800/80 text-slate-200 font-bold text-sm px-8 py-4 rounded-2xl transition-all border border-white/10 flex items-center justify-center space-x-2 shadow-sm">
+                    <i class="fa-solid fa-shield-halved text-brand-red"></i>
+                    <span>Sigorta Branşlarını İncele</span>
                 </a>
             </div>
+
         </div>
     </section>
 
     <!-- PARTNERS SECTION -->
-    <section class="py-10 bg-white border-y border-brand-border px-6">
+    <section class="py-12 px-6 relative z-10">
         <div class="max-w-7xl mx-auto">
-            <p class="text-center text-xs font-extrabold uppercase tracking-widest text-slate-400 mb-6">Anlaşmalı & Yetkili Sigorta Şirketlerimiz</p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 items-center justify-center">
-                <!-- 1. Türk P&I Sigorta (En Solda) -->
-                <div class="h-20 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center flex flex-col items-center justify-center hover:border-slate-300 transition-all">
-                    <div class="text-sm font-black text-sky-700 tracking-tight">TÜRK P&I</div>
-                    <div class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">DENİZCİLİK SİGORTASI</div>
+            <p class="text-center text-xs font-black uppercase tracking-widest text-slate-400 mb-8">Anlaşmalı & Yetkili Sigorta Şirketlerimiz</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 items-center justify-center">
+                <!-- 1. Türk P&I Sigorta -->
+                <div class="h-20 p-4 rounded-2xl liquid-card text-center flex flex-col items-center justify-center hover:border-sky-500/50 group">
+                    <div class="text-sm font-black text-sky-400 tracking-tight group-hover:scale-105 transition-transform">TÜRK P&I</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">DENİZCİLİK SİGORTASI</div>
                 </div>
                 <!-- 2. Anadolu Sigorta -->
-                <div class="h-20 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center flex flex-col items-center justify-center hover:border-slate-300 transition-all">
-                    <div class="text-sm font-black text-brand-blue tracking-tight">ANADOLU</div>
-                    <div class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">SİGORTA</div>
+                <div class="h-20 p-4 rounded-2xl liquid-card text-center flex flex-col items-center justify-center hover:border-blue-500/50 group">
+                    <div class="text-sm font-black text-blue-400 tracking-tight group-hover:scale-105 transition-transform">ANADOLU</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">SİGORTA</div>
                 </div>
-                <!-- 3. Hepiyi Sigorta -->
-                <div class="h-20 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center flex flex-col items-center justify-center hover:border-slate-300 transition-all">
-                    <div class="text-sm font-black text-slate-800 tracking-tight">HEPİYİ</div>
-                    <div class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">SİGORTA</div>
+                <!-- 3. Doğa Sigorta (Türkiye Sigorta ile yer değiştirdi) -->
+                <div class="h-20 p-4 rounded-2xl liquid-card text-center flex flex-col items-center justify-center hover:border-emerald-500/50 group">
+                    <div class="text-sm font-black text-emerald-400 tracking-tight group-hover:scale-105 transition-transform">DOĞA</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">SİGORTA</div>
                 </div>
-                <!-- 4. Doğa Sigorta -->
-                <div class="h-20 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center flex flex-col items-center justify-center hover:border-slate-300 transition-all">
-                    <div class="text-sm font-black text-emerald-700 tracking-tight">DOĞA</div>
-                    <div class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">SİGORTA</div>
+                <!-- 4. Allianz Sigorta -->
+                <div class="h-20 p-4 rounded-2xl liquid-card text-center flex flex-col items-center justify-center hover:border-blue-600/50 group">
+                    <div class="text-sm font-black text-blue-500 tracking-tight group-hover:scale-105 transition-transform">ALLIANZ</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">SİGORTA</div>
                 </div>
-                <!-- 5. Sompo Sigorta -->
-                <div class="h-20 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center flex flex-col items-center justify-center hover:border-slate-300 transition-all">
-                    <div class="text-sm font-black text-red-700 tracking-tight">SOMPO</div>
-                    <div class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">SİGORTA</div>
+                <!-- 5. Sompo Sigorta (Neova Katılım ile yer değiştirdi) -->
+                <div class="h-20 p-4 rounded-2xl liquid-card text-center flex flex-col items-center justify-center hover:border-red-500/50 group">
+                    <div class="text-sm font-black text-red-400 tracking-tight group-hover:scale-105 transition-transform">SOMPO</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">SİGORTA</div>
                 </div>
-                <!-- 6. Quick Sigorta -->
-                <div class="h-20 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center flex flex-col items-center justify-center hover:border-slate-300 transition-all">
-                    <div class="text-sm font-black text-amber-600 tracking-tight">QUICK</div>
-                    <div class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">SİGORTA</div>
+                <!-- 6. HDI Sigorta -->
+                <div class="h-20 p-4 rounded-2xl liquid-card text-center flex flex-col items-center justify-center hover:border-cyan-500/50 group">
+                    <div class="text-sm font-black text-cyan-400 tracking-tight group-hover:scale-105 transition-transform">HDI</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">SİGORTA</div>
+                </div>
+                <!-- 7. Hepiyi Sigorta -->
+                <div class="h-20 p-4 rounded-2xl liquid-card text-center flex flex-col items-center justify-center hover:border-slate-500/50 group">
+                    <div class="text-sm font-black text-slate-200 tracking-tight group-hover:scale-105 transition-transform">HEPİYİ</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">SİGORTA</div>
+                </div>
+                <!-- 8. Türkiye Sigorta -->
+                <div class="h-20 p-4 rounded-2xl liquid-card text-center flex flex-col items-center justify-center hover:border-red-600/50 group">
+                    <div class="text-sm font-black text-red-500 tracking-tight group-hover:scale-105 transition-transform">TÜRKİYE</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">SİGORTA</div>
+                </div>
+                <!-- 9. Neova Katılım Sigorta (Sompo Sigorta ile yer değiştirdi) -->
+                <div class="h-20 p-4 rounded-2xl liquid-card text-center flex flex-col items-center justify-center hover:border-teal-500/50 group">
+                    <div class="text-sm font-black text-teal-400 tracking-tight group-hover:scale-105 transition-transform">NEOVA</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">KATILIM SİGORTA</div>
+                </div>
+                <!-- 10. Quick Sigorta -->
+                <div class="h-20 p-4 rounded-2xl liquid-card text-center flex flex-col items-center justify-center hover:border-amber-500/50 group">
+                    <div class="text-sm font-black text-amber-400 tracking-tight group-hover:scale-105 transition-transform">QUICK</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">SİGORTA</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- BRANCHES SECTION -->
-    <section id="branches" class="py-16 px-6 max-w-7xl mx-auto border-t border-slate-200">
-        <div class="text-center max-w-2xl mx-auto mb-12">
-            <span class="text-xs font-bold uppercase tracking-widest text-brand-red mb-2 block">Kapsamlı Hizmet Ağımız</span>
-            <h2 class="text-3xl font-black text-brand-dark tracking-tight">Hangi Sigorta İçin Teklif Almak İstersiniz?</h2>
-            <p class="text-slate-500 text-sm mt-2">Aşağıdaki branşlardan birini seçerek doğrudan form alanına geçebilirsiniz.</p>
+    <section id="branches" class="py-16 px-6 max-w-7xl mx-auto relative z-10">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+            <span class="text-xs font-black uppercase tracking-widest text-brand-red mb-2 block">Kapsamlı Hizmet Ağımız</span>
+            <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Hangi Sigorta İçin Teklif Almak İstersiniz?</h2>
+            <p class="text-slate-400 text-sm sm:text-base mt-3">İhtiyacınıza uygun branşı seçerek doğrudan hızlı teklif formuna geçebilirsiniz.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             
             <!-- 1. Trafik -->
-            <div onclick="selectInsuranceBranch('Zorunlu Trafik Sigortası')" class="apple-card p-6 rounded-3xl cursor-pointer group flex flex-col justify-between">
+            <div onclick="selectInsuranceBranch('Zorunlu Trafik Sigortası')" class="liquid-card p-7 rounded-3xl cursor-pointer group flex flex-col justify-between">
                 <div>
-                    <div class="w-12 h-12 rounded-2xl bg-blue-50 text-brand-blue flex items-center justify-center text-xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-500/20 text-blue-400 border border-blue-500/30 flex items-center justify-center text-2xl mb-5 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm">
                         <i class="fa-solid fa-car"></i>
                     </div>
-                    <div class="inline-block text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-brand-blue px-2 py-0.5 rounded-md mb-2">Zorunlu Yasal</div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-1">Zorunlu Trafik Sigortası</h3>
-                    <p class="text-slate-500 text-xs leading-relaxed mb-4">Aracınızın yasal zorunlu trafik poliçesi için plaka ve ruhsat detayları ile teklif isteyin.</p>
+                    <div class="inline-block text-[10px] font-black uppercase tracking-wider bg-blue-500/20 text-blue-300 px-2.5 py-1 rounded-lg mb-3">Zorunlu Yasal</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Zorunlu Trafik Sigortası</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Aracınızın yasal zorunlu trafik poliçesi için plaka ve ruhsat detayları ile teklif isteyin.</p>
                 </div>
-                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1 transition-transform">
+                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1.5 transition-transform">
                     <span>Teklif İste</span>
-                    <i class="fa-solid fa-arrow-right ml-1"></i>
+                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
                 </div>
             </div>
 
             <!-- 2. Kasko -->
-            <div onclick="selectInsuranceBranch('Kasko Sigortası')" class="apple-card p-6 rounded-3xl cursor-pointer group flex flex-col justify-between">
+            <div onclick="selectInsuranceBranch('Kasko Sigortası')" class="liquid-card p-7 rounded-3xl cursor-pointer group flex flex-col justify-between">
                 <div>
-                    <div class="w-12 h-12 rounded-2xl bg-red-50 text-brand-red flex items-center justify-center text-xl mb-4 group-hover:bg-brand-red group-hover:text-white transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-red-500/20 text-red-400 border border-red-500/30 flex items-center justify-center text-2xl mb-5 group-hover:bg-brand-red group-hover:text-white transition-all shadow-sm">
                         <i class="fa-solid fa-shield-halved"></i>
                     </div>
-                    <div class="inline-block text-[10px] font-bold uppercase tracking-wider bg-red-50 text-brand-red px-2 py-0.5 rounded-md mb-2">Geniş Kapsam</div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-1">Kasko Sigortası</h3>
-                    <p class="text-slate-500 text-xs leading-relaxed mb-4">Kaza, yanma, hırsızlık ve doğal afetlere karşı aracınızı tam güvence altına alın.</p>
+                    <div class="inline-block text-[10px] font-black uppercase tracking-wider bg-red-500/20 text-red-300 px-2.5 py-1 rounded-lg mb-3">Geniş Kapsam</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Kasko Sigortası</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Kaza, yanma, hırsızlık ve doğal afetlere karşı aracınızı tam güvence altına alın.</p>
                 </div>
-                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1 transition-transform">
+                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1.5 transition-transform">
                     <span>Teklif İste</span>
-                    <i class="fa-solid fa-arrow-right ml-1"></i>
+                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
                 </div>
             </div>
 
             <!-- 3. Zorunlu Tekne Yolcu -->
-            <div onclick="selectInsuranceBranch('Zorunlu Tekne Yolcu Sigortası')" class="apple-card p-6 rounded-3xl cursor-pointer group flex flex-col justify-between">
+            <div onclick="selectInsuranceBranch('Zorunlu Tekne Yolcu Sigortası')" class="liquid-card p-7 rounded-3xl cursor-pointer group flex flex-col justify-between">
                 <div>
-                    <div class="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl mb-4 group-hover:bg-sky-600 group-hover:text-white transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-sky-500/20 text-sky-400 border border-sky-500/30 flex items-center justify-center text-2xl mb-5 group-hover:bg-sky-500 group-hover:text-white transition-all shadow-sm">
                         <i class="fa-solid fa-ship"></i>
                     </div>
-                    <div class="inline-block text-[10px] font-bold uppercase tracking-wider bg-sky-50 text-sky-700 px-2 py-0.5 rounded-md mb-2">Denizcilik / Yasal</div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-1">Zorunlu Tekne Yolcu Sigortası</h3>
-                    <p class="text-slate-500 text-xs leading-relaxed mb-4">Ticari ve yolcu taşıyan tekneleriniz için yasal zorunlu yolcu ve kaza sorumluluk teminatı.</p>
+                    <div class="inline-block text-[10px] font-black uppercase tracking-wider bg-sky-500/20 text-sky-300 px-2.5 py-1 rounded-lg mb-3">Denizcilik / Yasal</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Zorunlu Tekne Yolcu Sigortası</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Ticari ve yolcu taşıyan tekneleriniz için yasal zorunlu yolcu ve kaza sorumluluk teminatı.</p>
                 </div>
-                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1 transition-transform">
+                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1.5 transition-transform">
                     <span>Teklif İste</span>
-                    <i class="fa-solid fa-arrow-right ml-1"></i>
+                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
                 </div>
             </div>
 
             <!-- 4. TARSİM Tarım -->
-            <div onclick="selectInsuranceBranch('TARSİM Tarım Sigortası')" class="apple-card p-6 rounded-3xl cursor-pointer group flex flex-col justify-between">
+            <div onclick="selectInsuranceBranch('TARSİM Tarım Sigortası')" class="liquid-card p-7 rounded-3xl cursor-pointer group flex flex-col justify-between">
                 <div>
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-2xl mb-5 group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
                         <i class="fa-solid fa-wheat-awn"></i>
                     </div>
-                    <div class="inline-block text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md mb-2">Devlet Destekli</div>
-                    <h3 class="text-lg font-bold text-emerald-950 mb-1">TARSİM Tarım Sigortası</h3>
-                    <p class="text-slate-600 text-xs leading-relaxed mb-4">Sera, narenciye, meyve ve tarım alanlarınız için dolu, fırtına ve doğal afet koruması.</p>
+                    <div class="inline-block text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-lg mb-3">Devlet Destekli</div>
+                    <h3 class="text-xl font-bold text-white mb-2">TARSİM Tarım Sigortası</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Sera, narenciye, meyve ve tarım alanlarınız için dolu, fırtına ve doğal afet koruması.</p>
                 </div>
-                <div class="flex items-center text-xs font-bold text-emerald-700 group-hover:translate-x-1 transition-transform">
+                <div class="flex items-center text-xs font-bold text-emerald-400 group-hover:translate-x-1.5 transition-transform">
                     <span>Tarım Teklifi Al</span>
-                    <i class="fa-solid fa-arrow-right ml-1"></i>
+                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
                 </div>
             </div>
 
             <!-- 5. DASK / Konut -->
-            <div onclick="selectInsuranceBranch('DASK / Konut Sigortası')" class="apple-card p-6 rounded-3xl cursor-pointer group flex flex-col justify-between">
+            <div onclick="selectInsuranceBranch('DASK / Konut Sigortası')" class="liquid-card p-7 rounded-3xl cursor-pointer group flex flex-col justify-between">
                 <div>
-                    <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl mb-4 group-hover:bg-amber-600 group-hover:text-white transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center text-2xl mb-5 group-hover:bg-amber-600 group-hover:text-white transition-all shadow-sm">
                         <i class="fa-solid fa-house-chimney"></i>
                     </div>
-                    <div class="inline-block text-[10px] font-bold uppercase tracking-wider bg-amber-50 text-amber-700 px-2 py-0.5 rounded-md mb-2">Deprem & Ev</div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-1">DASK / Konut Sigortası</h3>
-                    <p class="text-slate-500 text-xs leading-relaxed mb-4">Zorunlu deprem sigortası ve evinizi, eşyalarınızı hırsızlık/yangına karşı koruyan poliçe.</p>
+                    <div class="inline-block text-[10px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-lg mb-3">Deprem & Ev</div>
+                    <h3 class="text-xl font-bold text-white mb-2">DASK / Konut Sigortası</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Zorunlu deprem sigortası ve evinizi, eşyalarınızı hırsızlık/yangına karşı koruyan poliçe.</p>
                 </div>
-                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1 transition-transform">
+                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1.5 transition-transform">
                     <span>Teklif İste</span>
-                    <i class="fa-solid fa-arrow-right ml-1"></i>
+                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
                 </div>
             </div>
 
             <!-- 6. Tamamlayıcı Sağlık -->
-            <div onclick="selectInsuranceBranch('Tamamlayıcı Sağlık Sigortası')" class="apple-card p-6 rounded-3xl cursor-pointer group flex flex-col justify-between">
+            <div onclick="selectInsuranceBranch('Tamamlayıcı Sağlık Sigortası')" class="liquid-card p-7 rounded-3xl cursor-pointer group flex flex-col justify-between">
                 <div>
-                    <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl mb-4 group-hover:bg-rose-600 group-hover:text-white transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center text-2xl mb-5 group-hover:bg-rose-600 group-hover:text-white transition-all shadow-sm">
                         <i class="fa-solid fa-heart-pulse"></i>
                     </div>
-                    <div class="inline-block text-[10px] font-bold uppercase tracking-wider bg-rose-50 text-rose-700 px-2 py-0.5 rounded-md mb-2">Özel Hastane</div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-1">Tamamlayıcı Sağlık Sigortası</h3>
-                    <p class="text-slate-500 text-xs leading-relaxed mb-4">Özel hastanelerde SGK farkı ödemeden muayene, ameliyat ve tedavi imkanı.</p>
+                    <div class="inline-block text-[10px] font-black uppercase tracking-wider bg-rose-500/20 text-rose-300 px-2.5 py-1 rounded-lg mb-3">Özel Hastane</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Tamamlayıcı Sağlık</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Özel hastanelerde SGK farkı ödemeden muayene, ameliyat ve tedavi imkanı.</p>
                 </div>
-                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1 transition-transform">
+                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1.5 transition-transform">
                     <span>Teklif İste</span>
-                    <i class="fa-solid fa-arrow-right ml-1"></i>
+                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
                 </div>
             </div>
 
             <!-- 7. Seyahat Sigortası -->
-            <div onclick="selectInsuranceBranch('Seyahat Sigortası')" class="apple-card p-6 rounded-3xl cursor-pointer group flex flex-col justify-between md:col-span-2 lg:col-span-1">
+            <div onclick="selectInsuranceBranch('Seyahat Sigortası')" class="liquid-card p-7 rounded-3xl cursor-pointer group flex flex-col justify-between">
                 <div>
-                    <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                    <div class="w-14 h-14 rounded-2xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center text-2xl mb-5 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-sm">
                         <i class="fa-solid fa-plane"></i>
                     </div>
-                    <div class="inline-block text-[10px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-md mb-2">Yurt İçi & Dışı</div>
-                    <h3 class="text-lg font-bold text-brand-dark mb-1">Seyahat Sigortası</h3>
-                    <p class="text-slate-500 text-xs leading-relaxed mb-4">Vize başvuruları ve seyahatleriniz sırasında oluşabilecek sağlık ve bagaj kayıpları teminatı.</p>
+                    <div class="inline-block text-[10px] font-black uppercase tracking-wider bg-indigo-500/20 text-indigo-300 px-2.5 py-1 rounded-lg mb-3">Yurt İçi & Dışı</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Seyahat Sigortası</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Vize başvuruları ve seyahatleriniz sırasında oluşabilecek sağlık ve bagaj kayıpları teminatı.</p>
                 </div>
-                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1 transition-transform">
+                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1.5 transition-transform">
                     <span>Teklif İste</span>
-                    <i class="fa-solid fa-arrow-right ml-1"></i>
+                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                </div>
+            </div>
+
+            <!-- 8. TÜVTÜRK Vize / Muayene Sigortası -->
+            <div onclick="selectInsuranceBranch('TÜVTÜRK Vize / Muayene Sigortası')" class="liquid-card p-7 rounded-3xl cursor-pointer group flex flex-col justify-between">
+                <div>
+                    <div class="w-14 h-14 rounded-2xl bg-violet-500/20 text-violet-400 border border-violet-500/30 flex items-center justify-center text-2xl mb-5 group-hover:bg-violet-600 group-hover:text-white transition-all shadow-sm">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                    </div>
+                    <div class="inline-block text-[10px] font-black uppercase tracking-wider bg-violet-500/20 text-violet-300 px-2.5 py-1 rounded-lg mb-3">Araç Vize / Muayene</div>
+                    <h3 class="text-xl font-bold text-white mb-2">TÜVTÜRK Vize</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Araç muayene öncesi gecikme ve cezalara karşı güncel zorunlu trafik poliçenizi hızlıca kontrol ettirin.</p>
+                </div>
+                <div class="flex items-center text-xs font-bold text-brand-red group-hover:translate-x-1.5 transition-transform">
+                    <span>Vize İste</span>
+                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
                 </div>
             </div>
 
@@ -316,69 +386,69 @@
     </section>
 
     <!-- DIRECT WHATSAPP FORM SECTION -->
-    <section id="form-section" class="py-16 px-6 bg-slate-900 text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#D32F2F_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <section id="form-section" class="py-16 px-6 relative z-10">
         <div class="max-w-3xl mx-auto relative z-10">
             
             <div class="text-center mb-10">
-                <span class="text-xs font-bold uppercase tracking-widest text-brand-red mb-2 block">Şeffaf & Doğrudan Bilgi İletimi</span>
-                <h2 class="text-2xl sm:text-4xl font-black tracking-tight">Teklif İsteme Formu</h2>
-                <p class="text-slate-400 text-sm mt-2">Bilgilerinizi doldurun, sistem tek tıkla verilerinizi WhatsApp üzerinden acentemize iletsin.</p>
+                <span class="text-xs font-black uppercase tracking-widest text-brand-red mb-2 block">Şeffaf & Doğrudan Bilgi İletimi</span>
+                <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white">Teklif İsteme Formu</h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-2">Bilgilerinizi doldurun, sistem tek tıkla verilerinizi WhatsApp üzerinden acentemize iletsin.</p>
             </div>
 
-            <form id="quote-form" onsubmit="sendToWhatsApp(event)" class="bg-slate-800/90 border border-slate-700 backdrop-blur-xl rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6">
+            <form id="quote-form" onsubmit="sendToWhatsApp(event)" class="liquid-card-accent rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6">
                 
                 <!-- Insurance Selection -->
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Sigorta Türü Seçin</label>
-                    <select id="field-branch" onchange="renderDynamicBranchFields()" class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-medium focus:outline-none focus:border-brand-red text-sm">
-                        <option value="Zorunlu Trafik Sigortası">Zorunlu Trafik Sigortası</option>
-                        <option value="Kasko Sigortası">Kasko Sigortası</option>
-                        <option value="Zorunlu Tekne Yolcu Sigortası">Zorunlu Tekne Yolcu Sigortası</option>
-                        <option value="TARSİM Tarım Sigortası">TARSİM Tarım Sigortası</option>
-                        <option value="DASK / Konut Sigortası">DASK / Konut Sigortası</option>
-                        <option value="Tamamlayıcı Sağlık Sigortası">Tamamlayıcı Sağlık Sigortası</option>
-                        <option value="Seyahat Sigortası">Seyahat Sigortası</option>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">Sigorta Türü Seçin</label>
+                    <select id="field-branch" onchange="renderDynamicBranchFields()" class="w-full px-4 py-4 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white font-medium focus:outline-none focus:border-brand-red text-sm transition-colors shadow-sm">
+                        <option value="Zorunlu Trafik Sigortası" class="bg-slate-900 text-white">Zorunlu Trafik Sigortası</option>
+                        <option value="Kasko Sigortası" class="bg-slate-900 text-white">Kasko Sigortası</option>
+                        <option value="Zorunlu Tekne Yolcu Sigortası" class="bg-slate-900 text-white">Zorunlu Tekne Yolcu Sigortası</option>
+                        <option value="TARSİM Tarım Sigortası" class="bg-slate-900 text-white">TARSİM Tarım Sigortası</option>
+                        <option value="DASK / Konut Sigortası" class="bg-slate-900 text-white">DASK / Konut Sigortası</option>
+                        <option value="Tamamlayıcı Sağlık Sigortası" class="bg-slate-900 text-white">Tamamlayıcı Sağlık Sigortası</option>
+                        <option value="Seyahat Sigortası" class="bg-slate-900 text-white">Seyahat Sigortası</option>
+                        <option value="TÜVTÜRK Vize / Muayene Sigortası" class="bg-slate-900 text-white">TÜVTÜRK Vize / Muayene Sigortası</option>
                     </select>
                 </div>
 
                 <!-- Personal Info Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Ad Soyad *</label>
-                        <input type="text" id="field-fullname" required placeholder="Örn: Ahmet Öztürk" class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red">
+                        <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">Ad Soyad *</label>
+                        <input type="text" id="field-fullname" required placeholder="Örn: Ahmet Öztürk" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red transition-colors shadow-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Telefon Numarası *</label>
-                        <input type="tel" id="field-phone" required placeholder="Örn: 053X XXX XX XX" class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red">
+                        <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">Telefon Numarası *</label>
+                        <input type="tel" id="field-phone" required placeholder="Örn: 053X XXX XX XX" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red transition-colors shadow-sm">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">T.C. Kimlik veya Vergi Kimlik No (Sorgulama İçin)</label>
-                    <input type="text" maxlength="11" id="field-tc" placeholder="Poliçe sorgusu için T.C. No giriniz" class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red">
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">T.C. Kimlik veya Vergi Kimlik No (Sorgulama İçin)</label>
+                    <input type="text" maxlength="11" id="field-tc" placeholder="Poliçe sorgusu için T.C. No giriniz" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red transition-colors shadow-sm">
                 </div>
 
                 <!-- DYNAMIC BRANCH FIELDS CONTAINER -->
-                <div id="dynamic-branch-inputs" class="p-5 bg-slate-900/80 border border-slate-700/80 rounded-2xl space-y-4">
+                <div id="dynamic-branch-inputs" class="p-5 bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-2xl space-y-4">
                     <!-- Javascript will render specific fields according to selected branch -->
                 </div>
 
                 <!-- Additional Notes -->
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Ek Not veya Özel İstekleriniz</label>
-                    <textarea id="field-notes" rows="2" placeholder="Varsa geçmiş poliçe bilgisi veya özel teminat talebiniz..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red resize-none"></textarea>
+                    <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">Ek Not veya Özel İstekleriniz</label>
+                    <textarea id="field-notes" rows="2" placeholder="Varsa geçmiş poliçe bilgisi veya özel teminat talebiniz..." class="w-full px-4 py-3 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red transition-colors resize-none shadow-sm"></textarea>
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm py-4 rounded-xl transition-all shadow-lg flex items-center justify-center space-x-2">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                <button type="submit" class="shimmer-btn w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:opacity-95 text-white font-extrabold text-sm py-4 rounded-xl transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center space-x-2.5">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
                     <span>Bilgilerimle WhatsApp'tan Teklif İstiyorum</span>
                 </button>
 
-                <div class="text-center">
+                <div class="text-center pt-2">
                     <span class="text-[11px] text-slate-400">
-                        <i class="fa-solid fa-lock text-brand-red mr-1"></i>
+                        <i class="fa-solid fa-lock text-brand-red mr-1.5"></i>
                         Bilgileriniz doğrudan yetkili acentemiz Murat Özek'e WhatsApp üzerinden iletilir.
                     </span>
                 </div>
@@ -389,321 +459,253 @@
     </section>
 
     <!-- ABOUT / STOREFRONT SECTION -->
-    <section id="about" class="py-16 px-6 max-w-7xl mx-auto">
+    <section id="about" class="py-16 px-6 max-w-7xl mx-auto relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-                <span class="text-xs font-bold uppercase tracking-widest text-brand-red mb-2 block">Bölgesel Güven & Deneyim</span>
-                <h2 class="text-3xl font-black text-brand-dark tracking-tight mb-4">
+                <span class="text-xs font-black uppercase tracking-widest text-brand-red mb-2 block">Bölgesel Güven & Deneyim</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4">
                     Yusuf Özek Sigorta
                 </h2>
-                <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                    Acenteliğimiz fiziki dükkanımızda ve dijital kanallarımızda Anadolu Sigorta yetkisi ve TARSİM temsilciliği ile hizmet vermektedir. Araç, sera, denizcilik ve konut poliçelerinizde birebir danışmanlık sunuyoruz.
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-8">
+                    Antalya'nın Demre ilçesinde 2013 yılından bu yana güvenle hizmet veren acenteliğimiz, bölgenin önde gelen ve en köklü sigorta temsilcilerindendir. Türk P&I yetkili acenteliğimizle Türkiye genelinde sadece 30, Antalya'da yalnızca 14 acenteden biri olarak; Demre'de ise bu özel yetkiye sahip tek acente olma gururuyla denizcilik, araç, sera ve konut poliçeleriniz için profesyonel danışmanlık sunuyoruz.
                 </p>
 
-                <div class="space-y-3">
-                    <div class="flex items-center space-x-3 p-3.5 rounded-2xl bg-white border border-brand-border">
-                        <div class="w-9 h-9 rounded-xl bg-red-50 text-brand-red flex items-center justify-center shrink-0 text-sm">
-                            <i class="fa-solid fa-building-shield"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-xs text-brand-dark">Anadolu Sigorta Yetkili Acentesi</h4>
-                            <p class="text-[11px] text-slate-500">Güçlü finansal yapıyla tam güvence.</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center space-x-3 p-3.5 rounded-2xl bg-white border border-brand-border">
-                        <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 text-sm">
-                            <i class="fa-solid fa-wheat-awn"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-xs text-brand-dark">Uzman TARSİM Tarım Sigortası</h4>
-                            <p class="text-[11px] text-slate-500">Sera ve tarım ürünlerinde devlet destekli poliçe imkanı.</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center space-x-3 p-3.5 rounded-2xl bg-white border border-brand-border">
-                        <div class="w-9 h-9 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 text-sm">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4 p-4 rounded-2xl liquid-card">
+                        <div class="w-11 h-11 rounded-xl bg-sky-500/20 border border-sky-500/30 text-sky-400 flex items-center justify-center shrink-0 text-base">
                             <i class="fa-solid fa-ship"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-xs text-brand-dark">Zorunlu Tekne Yolcu Teminatı</h4>
-                            <p class="text-[11px] text-slate-500">Ticari ve turistik deniz taşıtları yasal teminatı.</p>
+                            <h4 class="font-bold text-sm text-white">Ayrıcalıklı TÜRK P&I Yetkili Acentesi</h4>
+                            <p class="text-xs text-slate-400 mt-0.5">Demre'de tek, Antalya'da 14, Türkiye genelinde 30 yetkili acenteden biri.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-4 p-4 rounded-2xl liquid-card">
+                        <div class="w-11 h-11 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shrink-0 text-base">
+                            <i class="fa-solid fa-wheat-awn"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Uzman TARSİM Tarım Sigortası</h4>
+                            <p class="text-xs text-slate-400 mt-0.5">Sera ve tarım ürünlerinde devlet destekli poliçe imkanı.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-4 p-4 rounded-2xl liquid-card">
+                        <div class="w-11 h-11 rounded-xl bg-red-500/20 border border-red-500/30 text-brand-red flex items-center justify-center shrink-0 text-base">
+                            <i class="fa-solid fa-building-shield"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Geniş Poliçe & Teminat Ağımız</h4>
+                            <p class="text-xs text-slate-400 mt-0.5">Araç, kasko, konut, iş yeri ve tüm özel sigortalarınızda yanınızdayız.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Storefront Replica Box -->
-            <div class="bg-gradient-to-br from-brand-dark to-slate-900 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
-                <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-brand-red/10 rounded-full blur-2xl"></div>
-                
+            <!-- Storefront Digital Card -->
+            <div class="liquid-card-accent rounded-3xl p-8 sm:p-10 text-white shadow-2xl relative overflow-hidden">
                 <div class="relative z-10 space-y-6">
-                    <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
-                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-slate-900 shadow-sm p-2">
-                            <svg class="w-full h-full text-slate-900 fill-current" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M50 12 C28 12 12 28 12 36 C18 33 26 33 33 36 C40 33 48 33 50 36 C52 33 60 33 67 36 C74 33 82 33 88 36 C88 28 72 12 50 12 Z"/>
-                                <rect x="48.5" y="36" width="3" height="15" fill="currentColor"/>
-                                <circle cx="50" cy="56" r="6"/>
-                                <path d="M41 78 C41 68 45 64 50 64 C55 64 59 68 59 78 Z"/>
-                                <circle cx="38" cy="59" r="5"/>
-                                <path d="M30 78 C30 70 34 66 38 66 C41 66 43 68 44 71 C41 73 40 70 40 78 Z"/>
-                                <circle cx="62" cy="58" r="5"/>
-                                <path d="M56 78 C56 76 57 73 60 71 C61 68 63 66 66 66 C70 66 74 70 74 78 Z"/>
-                            </svg>
-                        </div>
+                    <div class="border-b border-slate-800 pb-6">
                         <div>
-                            <h3 class="font-black text-lg leading-tight">YUSUF ÖZEK SİGORTA</h3>
-                            <p class="text-[11px] text-brand-red font-bold uppercase tracking-wider">Yetkili Acente & Tarsim</p>
+                            <h3 class="font-black text-xl leading-tight text-white">YUSUF ÖZEK SİGORTA</h3>
+                            <p class="text-xs text-brand-red font-bold uppercase tracking-wider mt-1">2013'ten Beri Demre'de Güvenin Adresi</p>
                         </div>
                     </div>
 
-                    <div class="space-y-3 text-xs text-slate-300">
-                        <div class="flex justify-between py-1 border-b border-slate-800/60">
+                    <div class="space-y-4 text-xs sm:text-sm text-slate-300">
+                        <div class="flex justify-between py-2 border-b border-slate-800">
                             <span class="text-slate-400">Yetkili İsim:</span>
                             <span class="font-bold text-white">Murat Özek</span>
                         </div>
-                        <div class="flex justify-between py-1 border-b border-slate-800/60">
+                        <div class="flex justify-between py-2 border-b border-slate-800">
                             <span class="text-slate-400">Doğrudan İletişim:</span>
-                            <span class="font-bold text-white">0539 399 05 08</span>
+                            <span class="font-bold text-white">0552 792 17 90</span>
                         </div>
-                        <div class="flex justify-between py-1 border-b border-slate-800/60">
-                            <span class="text-slate-400">Poliçe Hizmetleri:</span>
-                            <span class="font-bold text-white">Araç, Tarım, Tekne, DASK, Sağlık</span>
+                        <div class="flex justify-between py-2 border-b border-slate-800">
+                            <span class="text-slate-400">WhatsApp Destek:</span>
+                            <span class="font-bold text-emerald-400">0532 414 08 25</span>
+                        </div>
+                        <div class="flex justify-between py-2">
+                            <span class="text-slate-400">Hizmet Bölgesi:</span>
+                            <span class="font-bold text-white">Antalya Demre & Tüm Türkiye</span>
                         </div>
                     </div>
 
-                    <a href="tel:05393990508" class="w-full bg-brand-red hover:bg-brand-redDark text-white font-bold text-xs py-3.5 rounded-xl transition-colors flex items-center justify-center space-x-2 shadow-md">
-                        <i class="fa-solid fa-phone"></i>
-                        <span>Murat Özek'i Doğrudan Ara</span>
-                    </a>
+                    <div class="pt-2">
+                        <a href="https://wa.me/905324140825?text=Merhaba,%20ofisiniz%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs py-3.5 rounded-xl transition-all flex items-center justify-center space-x-2 shadow-sm border border-white/10">
+                            <i class="fa-brands fa-whatsapp text-emerald-400 text-sm"></i>
+                            <span>Murat Özek ile Mesajlaşın</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- FOOTER -->
-    <footer class="border-t border-brand-border bg-white py-10 px-6 text-xs text-slate-500">
+    <footer class="liquid-glass-nav py-10 px-6 border-t border-white/10 relative z-10 mt-10">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-white p-1.5 border border-slate-700">
-                    <svg class="w-full h-full text-white fill-current" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M50 12 C28 12 12 28 12 36 C18 33 26 33 33 36 C40 33 48 33 50 36 C52 33 60 33 67 36 C74 33 82 33 88 36 C88 28 72 12 50 12 Z"/>
-                        <rect x="48.5" y="36" width="3" height="15" fill="currentColor"/>
-                        <circle cx="50" cy="56" r="6"/>
-                        <path d="M41 78 C41 68 45 64 50 64 C55 64 59 68 59 78 Z"/>
-                        <circle cx="38" cy="59" r="5"/>
-                        <path d="M30 78 C30 70 34 66 38 66 C41 66 43 68 44 71 C41 73 40 70 40 78 Z"/>
-                        <circle cx="62" cy="58" r="5"/>
-                        <path d="M56 78 C56 76 57 73 60 71 C61 68 63 66 66 66 C70 66 74 70 74 78 Z"/>
-                    </svg>
-                </div>
-                <div>
-                    <div class="font-bold text-brand-dark">YUSUF ÖZEK SİGORTA</div>
-                    <div class="text-[10px] text-slate-400">Anadolu, Hepiyi, Doğa, Türk P&I, Sompo, Quick Yetkili Acentesi • Murat Özek: 0539 399 05 08</div>
-                </div>
+            <div>
+                <div class="text-lg font-black tracking-tight text-white">YUSUF ÖZEK SİGORTA</div>
+                <p class="text-xs text-slate-400 mt-1">Yetkili Acente & Profesyonel Sigorta Teklif Platformu</p>
             </div>
-
-            <div class="flex items-center space-x-6 font-medium text-slate-600">
-                <a href="#branches" class="hover:text-brand-dark">Branşlar</a>
-                <a href="#form-section" class="hover:text-brand-dark">Teklif Al</a>
-                <a href="tel:05393990508" class="text-brand-red font-bold">0539 399 05 08</a>
-            </div>
-
-            <div class="text-slate-400 text-[11px]">
+            <div class="text-xs text-slate-500">
                 &copy; 2026 Yusuf Özek Sigorta. Tüm hakları saklıdır.
             </div>
         </div>
     </footer>
 
+    <!-- MODAL / NOTIFICATION OVERLAY -->
+    <div id="notification-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md hidden">
+        <div class="liquid-card-accent rounded-3xl p-8 max-w-sm w-full mx-4 shadow-2xl text-center space-y-4 smooth-appear">
+            <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center text-2xl mx-auto border border-emerald-500/30">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-lg font-black text-white">WhatsApp'a Yönlendiriliyorsunuz</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">Teklif talebiniz hazırlandı. Murat Özek ile doğrudan WhatsApp üzerinden görüşmek üzeresiniz.</p>
+            <button onclick="closeModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs py-3 rounded-xl transition-all shadow-sm border border-white/10">
+                Tamam
+            </button>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Select insurance branch from cards
+        // Render dynamic branch fields when selection changes
+        function renderDynamicBranchFields() {
+            const branch = document.getElementById('field-branch').value;
+            const container = document.getElementById('dynamic-branch-inputs');
+            
+            let html = '';
+            if (branch === 'Zorunlu Trafik Sigortası' || branch === 'Kasko Sigortası' || branch === 'TÜVTÜRK Vize / Muayene Sigortası') {
+                html = `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">Araç Plakası *</label>
+                            <input type="text" id="dyn-plaka" required placeholder="Örn: 07 ABC 34" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red uppercase shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">Ruhsat Seri No *</label>
+                            <input type="text" id="dyn-ruhsat" required placeholder="Örn: AB 123456" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red uppercase shadow-sm">
+                        </div>
+                    </div>
+                `;
+            } else if (branch === 'Zorunlu Tekne Yolcu Sigortası') {
+                html = `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">Tekne Adı / Sicil No *</label>
+                            <input type="text" id="dyn-tekne-adi" required placeholder="Örn: Mavi Deniz - 12345" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">Yolcu Kapasitesi *</label>
+                            <input type="number" id="dyn-kapasite" required placeholder="Örn: 12 Kişi" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red shadow-sm">
+                        </div>
+                    </div>
+                `;
+            } else if (branch === 'TARSİM Tarım Sigortası') {
+                html = `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">Ürün / Sera Türü *</label>
+                            <input type="text" id="dyn-urun" required placeholder="Örn: Domates Serası / Narenciye" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">Konum / İlçe *</label>
+                            <input type="text" id="dyn-konum" required placeholder="Örn: Demre / Antalya" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red shadow-sm">
+                        </div>
+                    </div>
+                `;
+            } else if (branch === 'DASK / Konut Sigortası') {
+                html = `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">Bina Metrekare (m²) *</label>
+                            <input type="number" id="dyn-m2" required placeholder="Örn: 120" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">İl / İlçe *</label>
+                            <input type="text" id="dyn-adres" required placeholder="Örn: Antalya / Demre" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red shadow-sm">
+                        </div>
+                    </div>
+                `;
+            } else {
+                html = `
+                    <div>
+                        <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-300 mb-2">Sigorta Detay Talebiniz *</label>
+                        <input type="text" id="dyn-genel" required placeholder="Örn: Yaş, Kişi Sayısı veya Seyahat Tarihi" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-brand-red shadow-sm">
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        // Helper function when user clicks a branch card
         function selectInsuranceBranch(branchName) {
             const selectEl = document.getElementById('field-branch');
             selectEl.value = branchName;
             renderDynamicBranchFields();
             
-            const formSection = document.getElementById('form-section');
-            formSection.scrollIntoView({ behavior: 'smooth' });
+            // Smooth scroll to form section
+            document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Render input fields according to chosen insurance category
-        function renderDynamicBranchFields() {
-            const branch = document.getElementById('field-branch').value;
-            const container = document.getElementById('dynamic-branch-inputs');
-
-            if (branch === 'Zorunlu Trafik Sigortası' || branch === 'Kasko Sigortası') {
-                container.innerHTML = `
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Araç Plakası *</label>
-                            <input type="text" id="branch-plaka" required placeholder="Örn: 07 ABC 123" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Ruhsat Seri / Belge No</label>
-                            <input type="text" id="branch-ruhsat" placeholder="Örn: AB 123456" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Araç Marka & Model Yılı</label>
-                        <input type="text" id="branch-aracdetay" placeholder="Örn: 2020 Fiat Egea 1.3 Multijet" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                    </div>
-                `;
-            } 
-            else if (branch === 'Zorunlu Tekne Yolcu Sigortası') {
-                container.innerHTML = `
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Tekne / Yat Adı *</label>
-                            <input type="text" id="branch-tekneadi" required placeholder="Örn: Özek 1" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Bağlama Limanı / Cinsi</label>
-                            <input type="text" id="branch-liman" placeholder="Örn: Demre / Ticari Gezinti" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Maksimum Yolcu Kapasitesi *</label>
-                            <input type="number" id="branch-yolcu" required placeholder="Örn: 12 Yolcu" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Mürettebat Sayısı</label>
-                            <input type="number" id="branch-murettebat" placeholder="Örn: 2 Personel" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                    </div>
-                `;
-            }
-            else if (branch === 'TARSİM Tarım Sigortası') {
-                container.innerHTML = `
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Ürün / Sera Türü *</label>
-                            <input type="text" id="branch-urun" required placeholder="Örn: Cam Sera / Domates" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Alan / Dekar Büyüklüğü *</label>
-                            <input type="text" id="branch-dekar" required placeholder="Örn: 10 Dekar" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Arazi / Sera Konumu (İlçe / Mahalle)</label>
-                        <input type="text" id="branch-tarimkonum" placeholder="Örn: Antalya / Demre / Beymelek" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                    </div>
-                `;
-            }
-            else if (branch === 'DASK / Konut Sigortası') {
-                container.innerHTML = `
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Konut Brüt Metrekare *</label>
-                            <input type="text" id="branch-m2" required placeholder="Örn: 120 m²" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Bina Yapım Yılı / Katı</label>
-                            <input type="text" id="branch-binadetay" placeholder="Örn: 2018 Yapımı / 2. Kat" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Adres / İlçe</label>
-                        <input type="text" id="branch-evadres" placeholder="Örn: Antalya / Demre" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                    </div>
-                `;
-            }
-            else if (branch === 'Tamamlayıcı Sağlık Sigortası') {
-                container.innerHTML = `
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Doğum Tarihi *</label>
-                            <input type="text" id="branch-dogum" required placeholder="Örn: 15.05.1988" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Cinsiyet / Meslek</label>
-                            <input type="text" id="branch-saglikdetay" placeholder="Örn: Erkek / Çiftçi" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                    </div>
-                `;
-            }
-            else if (branch === 'Seyahat Sigortası') {
-                container.innerHTML = `
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Gidilecek Ülke / Bölge *</label>
-                            <input type="text" id="branch-ulke" required placeholder="Örn: Almanya / Avrupa (Schengen)" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Seyahat Tarihleri *</label>
-                            <input type="text" id="branch-tarihler" required placeholder="Örn: 10-20 Mayıs 2026" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-red">
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        // Format data and redirect directly to WhatsApp
-        function sendToWhatsApp(e) {
-            e.preventDefault();
-
+        // Form submission to WhatsApp
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+            
             const branch = document.getElementById('field-branch').value;
             const fullname = document.getElementById('field-fullname').value;
             const phone = document.getElementById('field-phone').value;
             const tc = document.getElementById('field-tc').value || 'Belirtilmedi';
             const notes = document.getElementById('field-notes').value || 'Yok';
 
-            let branchSpecificDetails = '';
+            let dynamicDetails = '';
+            const dynPlaka = document.getElementById('dyn-plaka');
+            const dynRuhsat = document.getElementById('dyn-ruhsat');
+            const dynTekne = document.getElementById('dyn-tekne-adi');
+            const dynKapasite = document.getElementById('dyn-kapasite');
+            const dynUrun = document.getElementById('dyn-urun');
+            const dynKonum = document.getElementById('dyn-konum');
+            const dynM2 = document.getElementById('dyn-m2');
+            const dynAdres = document.getElementById('dyn-adres');
+            const dynGenel = document.getElementById('dyn-genel');
 
-            if (branch === 'Zorunlu Trafik Sigortası' || branch === 'Kasko Sigortası') {
-                const plaka = document.getElementById('branch-plaka')?.value || '-';
-                const ruhsat = document.getElementById('branch-ruhsat')?.value || '-';
-                const arac = document.getElementById('branch-aracdetay')?.value || '-';
-                branchSpecificDetails = `🚗 *Plaka:* ${plaka}\n📄 *Ruhsat Seri No:* ${ruhsat}\n🚘 *Araç Detayı:* ${arac}`;
-            }
-            else if (branch === 'Zorunlu Tekne Yolcu Sigortası') {
-                const tekne = document.getElementById('branch-tekneadi')?.value || '-';
-                const liman = document.getElementById('branch-liman')?.value || '-';
-                const yolcu = document.getElementById('branch-yolcu')?.value || '-';
-                const murettebat = document.getElementById('branch-murettebat')?.value || '-';
-                branchSpecificDetails = `⛵ *Tekne Adı:* ${tekne}\n⚓ *Liman/Cinsi:* ${liman}\n👥 *Yolcu Kapasitesi:* ${yolcu}\n👨‍✈️ *Mürettebat:* ${murettebat}`;
-            }
-            else if (branch === 'TARSİM Tarım Sigortası') {
-                const urun = document.getElementById('branch-urun')?.value || '-';
-                const dekar = document.getElementById('branch-dekar')?.value || '-';
-                const konum = document.getElementById('branch-tarimkonum')?.value || '-';
-                branchSpecificDetails = `🌾 *Sera/Ürün Türü:* ${urun}\n📐 *Alan (Dekar):* ${dekar}\n📍 *Konum:* ${konum}`;
-            }
-            else if (branch === 'DASK / Konut Sigortası') {
-                const m2 = document.getElementById('branch-m2')?.value || '-';
-                const bina = document.getElementById('branch-binadetay')?.value || '-';
-                const adres = document.getElementById('branch-evadres')?.value || '-';
-                branchSpecificDetails = `🏠 *Brüt m²:* ${m2}\n🏢 *Bina Yaşı/Katı:* ${bina}\n📍 *Konum/Adres:* ${adres}`;
-            }
-            else if (branch === 'Tamamlayıcı Sağlık Sigortası') {
-                const dogum = document.getElementById('branch-dogum')?.value || '-';
-                const saglik = document.getElementById('branch-saglikdetay')?.value || '-';
-                branchSpecificDetails = `🎂 *Doğum Tarihi:* ${dogum}\nℹ️ *Cinsiyet/Meslek:* ${saglik}`;
-            }
-            else if (branch === 'Seyahat Sigortası') {
-                const ulke = document.getElementById('branch-ulke')?.value || '-';
-                const tarih = document.getElementById('branch-tarihler')?.value || '-';
-                branchSpecificDetails = `✈️ *Gidilecek Bölge:* ${ulke}\n📅 *Seyahat Tarihleri:* ${tarih}`;
+            if (dynPlaka && dynRuhsat) {
+                dynamicDetails = `🚗 Plaka: ${dynPlaka.value}%0A📄 Ruhsat No: ${dynRuhsat.value}`;
+            } else if (dynTekne && dynKapasite) {
+                dynamicDetails = `⛵ Tekne Adı/Sicil: ${dynTekne.value}%0A👥 Yolcu Kapasitesi: ${dynKapasite.value}`;
+            } else if (dynUrun && dynKonum) {
+                dynamicDetails = `🌾 Ürün/Sera: ${dynUrun.value}%0A📍 Konum: ${dynKonum.value}`;
+            } else if (dynM2 && dynAdres) {
+                dynamicDetails = `🏠 Metrekare: ${dynM2.value} m²%0A📍 Adres: ${dynAdres.value}`;
+            } else if (dynGenel) {
+                dynamicDetails = `📋 Detay: ${dynGenel.value}`;
             }
 
-            // Construct WhatsApp Message Text
-            let message = `*YUSUF ÖZEK SİGORTA - TEKLİF TALEBİ*\n\n`;
-            message += `📋 *Sigorta Türü:* ${branch}\n`;
-            message += `👤 *Müşteri Adı:* ${fullname}\n`;
-            message += `📞 *Telefon:* ${phone}\n`;
-            message += `🆔 *TC / Vergi No:* ${tc}\n\n`;
-            message += `*BRANŞ DETAYLARI:*\n${branchSpecificDetails}\n\n`;
-            message += `📝 *Müşteri Notu:* ${notes}\n\n`;
-            message += `_Bu teklif talebi yusufozeksigorta.com web platformu üzerinden iletilmiştir._`;
+            const message = `*Merhaba Yusuf Özek Sigorta,%20sigorta%20teklifi%20almak%20istiyorum.*%0A%0A` +
+                            `📌 *Sigorta Türü:* ${branch}%0A` +
+                            `👤 *Ad Soyad:* ${fullname}%0A` +
+                            `📞 *Telefon:* ${phone}%0A` +
+                            `🆔 *T.C. / Vergi No:* ${tc}%0A` +
+                            (dynamicDetails ? `${dynamicDetails}%0A` : '') +
+                            `💬 *Ek Notlar:* ${notes}`;
 
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappURL = `https://wa.me/905393990508?text=${encodedMessage}`;
+            // Show confirmation modal
+            document.getElementById('notification-modal').classList.remove('hidden');
 
-            window.open(whatsappURL, '_blank');
+            // Open WhatsApp after a brief delay
+            setTimeout(() => {
+                window.open(`https://wa.me/905324140825?text=${message}`, '_blank');
+            }, 800);
         }
 
-        // Initialize dynamic fields on page load
+        function closeModal() {
+            document.getElementById('notification-modal').classList.add('hidden');
+        }
+
+        // Initialize dynamic fields on load
         window.onload = function() {
             renderDynamicBranchFields();
         };
